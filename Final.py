@@ -3,7 +3,7 @@ bl_info = {
     "author": "Blendey",
     "version": (1, 0),
     "blender": (3, 2, 0),
-    "location": "In the search menu",
+    "location": "In the search menu, search for 'VertexSeparete', 'VertexMix', 'RetopoSetup'",
     "description": "A collection of macro's/presets",
     "warning": "It is still unstable, and most features aren't ready yet",
     "doc_url": "",
