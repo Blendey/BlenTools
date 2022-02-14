@@ -4,4 +4,4 @@ The add-on includes little features, like seperating vertex groups from your mes
 
 
 
-To install the addon, download and extract the .zip file. Go to blenders preferences -> Add-ons -> Install and choose the "Final.py" file
+To install the addon, download and extract the .zip file. Go to blenders preferences -> Add-ons -> Install and choose the "Final.py" file, click the "Install Add-on" button, and activate the addon by checking the checkbox.
