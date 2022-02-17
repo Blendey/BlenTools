@@ -12,6 +12,6 @@ The addon isn't able to do very much currently (new functionality will be added 
 
 *You have a mesh with an armature parented to it with automatic weights, so you got one or more vertex groups from your bones. 
 You also have a particle system on your mesh, to give the object hairs. This particle system uses a vertex group to control the density of the hairs. 
-Then you want to adjust the vertex groups from the bones, and you want to use* Normalize *and* Auto Normalize *to normalize your vertex groups. The only problem is that when you normalize the vertex groups, also the vertex group which is used to control the density of the hairs will be effected, and likely you don't want this.*
+Then you want to adjust the vertex groups from the bones, and you want to use* Normalize *and* Auto Normalize *to normalize your vertex groups. The only problem is that when you normalize the vertex groups, also the vertex group which is used to control the density of the hairs will be effected, and likely you don't want this. Of course you can lock the vertex group used for the hairs, then the locked group wil not change, but it is still *
 
 That is where this function of the addon comes in handy, the addon let you seperate the vertex group used for the hairs from your mesh, and it will store it on an invisible copy of the mesh in your file. Then you can change the vertex groups from the bones and normalize them without effecting the other vertex group.
