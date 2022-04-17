@@ -124,15 +124,14 @@ def easyIK():
     bpy.context.object.pose.bones[IKbot].constraints["IK"].chain_count = 2
     
 def RemoveUv():
-    selected = bpy.context.selected_objects
+    selected_objects = bpy.context.selected_objects
 
-    bad_uvmap = 'UVMap' # Enter the UV map name you want to remove here
-    print("Deleting unwanted UV Layers")
-    for obj in selected:
+    uvmap = 'UVMap'
+    for obj in selected_objects:
        if obj.type == "MESH":
-         bad_uvlayer = obj.data.uv_layers.get(bad_uvmap)
-         if bad_uvlayer != None:
-           obj.data.uv_layers.remove(bad_uvlayer)
+         uvlayer = obj.data.uv_layers.get(uvmap)
+         if uvlayer != None:
+           obj.data.uv_layers.remove(uvlayer)
            
 class VertexSeperate(bpy.types.Operator):
     """VertexSeperate"""     
