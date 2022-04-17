@@ -21,3 +21,9 @@ To use this function of the addon, you first have to make sure that the vertex g
 When you want to merge the vertex group(s) back into the original mesh, select the original object, open up the search menu, type "VertexMix" and hit _Enter_. The vertex group(s) will be merged back into the original mesh, and the invisible copy of the mesh will be removed.
 
 Hope this was helpful!
+
+## RetopoSetup
+Another little feature the addon offers, is setting up the beginning of a retopology workflow. This function is easy to activate: make sure the object you want to retopologize is selected, press _f3_ to bring up the search menu, type _RetopoSetup_ and press _Enter_ to confirm. The addon will add a plane with a shrinkwrap modifier with the selected object as the target for the modifier. The addon will also turn on snapping to faces, switch to a matcap, and go to edit mode with the plane selected.
+
+## Remove UV Maps
+This function removes all the UV Maps that are named "UVMap" from all selected objects.
