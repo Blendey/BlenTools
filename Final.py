@@ -1,11 +1,11 @@
 bl_info = {
     "name": "BlenTools",
     "author": "Blendey",
-    "version": (1, 0),
+    "version": (2, 1),
     "blender": (3, 2, 0),
-    "location": "In the search menu, search for 'VertexSeparete', 'VertexMix', 'RetopoSetup'",
-    "description": "A collection of macro's/presets",
-    "warning": "It is still unstable, and most features aren't ready yet",
+    "location": "In the search menu",
+    "description": "A collection of random macro's/presets",
+    "warning": "",
     "doc_url": "",
     "category": "Object",
 }
@@ -109,19 +109,31 @@ def retoposetup(): # This function will setup a retopo setup...
     # Do some extra random stuff
     bpy.ops.object.editmode_toggle()
     bpy.context.space_data.shading.light = 'MATCAP'
-    bpy.context.space_data.shading.studio_light = 'basic_2.exr'
+    bpy.context.space_data.shading.studio_light = 'clay_brown.exr'
     bpy.ops.view3d.toggle_xray()
 
-def EasyIK():
+def easyIK():
     bpy.ops.pose.constraint_add(type='IK')
     Skelet = bpy.context.view_layer.objects.active
-    IKbot = bpy.context.selectet_bones[0]
+    IKbot = 'Bone'
     Skelet.pose.bones[IKbot].constraints['IK'].target = Skelet
     Skelet.pose.bones[IKbot].constraints['IK'].subtarget = 'HeelIK.L'
     Skelet.pose.bones[IKbot].constraints['IK'].pole_target = Skelet
-    Skelet.pose.bones[IKbot].constraints['IK'].pole_subtarget = 'KneeIK.L'
+    Skelet.pose.bones[IKbot].constraints['IK'].pole_subtarget = 'KneeTarget.L'
+    bpy.ops.pose.constraint_add(type='COPY_ROTATION')
     bpy.context.object.pose.bones[IKbot].constraints["IK"].chain_count = 2
+    
+def RemoveUv():
+    selected = bpy.context.selected_objects
 
+    bad_uvmap = 'UVMap' # Enter the UV map name you want to remove here
+    print("Deleting unwanted UV Layers")
+    for obj in selected:
+       if obj.type == "MESH":
+         bad_uvlayer = obj.data.uv_layers.get(bad_uvmap)
+         if bad_uvlayer != None:
+           obj.data.uv_layers.remove(bad_uvlayer)
+           
 class VertexSeperate(bpy.types.Operator):
     """VertexSeperate"""     
     bl_idname = "object.seperate"        
@@ -151,23 +163,50 @@ class RetopoSetup(bpy.types.Operator):
     def execute(self, context):
         retoposetup()
         return {'FINISHED'}
+
+class RemoveUV(bpy.types.Operator):
+    """RemoveUV"""     
+    bl_idname = "object.uvremove"        
+    bl_label = "Remove UV"         
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        RemoveUv()
+        return {'FINISHED'}
+    
+class SetEasyIK(bpy.types.Operator):
+    """EasyIK"""     
+    bl_idname = "pose.easyik"        
+    bl_label = "EasyIK"         
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        easyIK()
+        return {'FINISHED'}
     
 
 def menu_func(self, context):
     self.layout.operator(VertexSeperate.bl_idname)
     self.layout.operator(VertexMix.bl_idname)
     self.layout.operator(RetopoSetup.bl_idname)
+    self.layout.operator(SetEasyIK.bl_idname)
+    self.layout.operator(RemoveUV.bl_idname)
 
 def register():
     bpy.utils.register_class(VertexSeperate)
     bpy.utils.register_class(VertexMix)
     bpy.utils.register_class(RetopoSetup)
+    bpy.utils.register_class(SetEasyIK)
+    bpy.utils.register_class(RemoveUV)
     bpy.types.VIEW3D_MT_object.append(menu_func)
 
 def unregister():
     bpy.utils.unregister_class(VertexSeperate)
     bpy.utils.unregister_class(VertexMix)
     bpy.utils.unregister_class(RetopoSetup)
+    bpy.utils.unregister_class(SetEasyIK)
+    bpy.utils.unregister_class(RemoveUV)
+
 
 
 if __name__ == "__main__":
